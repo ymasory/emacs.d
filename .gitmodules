@@ -4,3 +4,9 @@
 [submodule "scalatra-mode"]
 	   path = scalatra-mode
 	   url = git://github.com/hvesalai/scalatra-mode
+[submodule "external/scalatra-mode"]
+	path = external/scalatra-mode
+	url = git://github.com/hvesalai/scalatra-mode
+[submodule "external/scala-mode"]
+	path = external/scala-mode
+	url = git://github.com/hvesalai/scala-mode2
