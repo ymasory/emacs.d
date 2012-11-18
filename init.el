@@ -1,4 +1,4 @@
-;; ELPA
+; ELPA
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -28,12 +28,13 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 
 ;; ENSIME
-(add-to-list 'load-path "~/.emacs.d/external/?")
+(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
 (require 'ensime)
 (add-hook 'scala-mode-hook
           'ensime-scala-mode-hook)
+
 ; -- start ensime
-(global-set-key (kbd "C-c e") 'ensime)
+(global-set-key (kbd "M-e") 'ensime)
 ; -- completions
 ; tab --> start completing method/variable
 ; -- refactor
@@ -157,8 +158,8 @@
     (message "Aborting")))
 
 ;; SCALA
-(add-to-list 'load-path "~/emacs.d/external/external/scala-mode2")
-(add-to-list 'load-path "~/emacs.d/external/external/scalatra-mode")
+(add-to-list 'load-path "~/.emacs.d/external/scala-mode")
+(add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
 (require 'scala-mode)
 (add-hook 'scala-mode-hook
           (local-set-key (kbd "RET") 'newline-and-indent)
