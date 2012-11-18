@@ -1,8 +1,7 @@
 ;; ELPA
 (require 'package)
-(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-                  ("elpa" . "http://tromey.com/elpa/")))
-  (add-to-list 'package-archives source t))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 ;; KEY BINDINGS
@@ -29,6 +28,7 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 
 ;; ENSIME
+(add-to-list 'load-path "~/.emacs.d/external/?")
 (require 'ensime)
 (add-hook 'scala-mode-hook
           'ensime-scala-mode-hook)
@@ -157,6 +157,8 @@
     (message "Aborting")))
 
 ;; SCALA
+(add-to-list 'load-path "~/emacs.d/external/external/scala-mode2")
+(add-to-list 'load-path "~/emacs.d/external/external/scalatra-mode")
 (require 'scala-mode)
 (add-hook 'scala-mode-hook
           (local-set-key (kbd "RET") 'newline-and-indent)
