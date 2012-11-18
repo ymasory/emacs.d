@@ -175,11 +175,11 @@
 (global-set-key (kbd "C-x f") 'helm-for-files)
 
 ;; LINES
-(global-linum-mode 1)
-(setq linum-format "%d ")
-(setq linum-format "%4d \u2502 ")
-(require 'highline)
-(highline-mode 1)
+;; (global-linum-mode 1)
+;; (setq linum-format "%d ")
+;; (setq linum-format "%4d \u2502 ")
+;; (require 'highline)
+;; (highline-mode 1)
 
 ;; PROJECTILE
 (require 'projectile)
