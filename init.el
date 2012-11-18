@@ -1,3 +1,5 @@
+(add-to-list 'load-path "~/.emacs.d/myext")
+
 ; ELPA
 (require 'package)
 (add-to-list 'package-archives
