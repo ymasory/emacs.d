@@ -2,6 +2,9 @@
 
 ; ELPA
 (require 'package)
+(require 'package)
+(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
+  (add-to-list 'package-archives source t))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
@@ -68,15 +71,15 @@
 (global-set-key (kbd "C-c x") 'ensime-scalex)
 (setq ensime-sem-high-faces
   '(
-   (var . (:foreground "#ff2222"))
-   (val . (:foreground "#dddddd"))
-   (varField . (:foreground "#ff3333"))
-   (valField . (:foreground "#dddddd"))
-   (functionCall . (:foreground "#84BEE3"))
-   (param . (:foreground "#ffffff"))
-   (class . font-lock-type-face)
-   (trait . (:foreground "#084EA8"))
-   (object . (:foreground "#026DF7"))
+   (var . (:slant italic :foreground "#fa8072"))
+   (val . (:foreground "#cdbe70"))
+   (varField . (:foreground "#fa8072" :bold t :slant italic))
+   (valField . (:foreground "#cdbe70" :slant italic))
+   (functionCall . (:foreground "#7ec0ee" :slant italic))
+   (param . (:foreground "#ee7942"))
+   (class . (:foreground "#76eec6"))
+   (trait . (:foreground "#7CCD7C"))
+   (object . (:italic t :foreground "#76eec6"))
    (package . font-lock-preprocessor-face)
    ))
 
@@ -95,6 +98,8 @@
 (setq require-final-newline t) ; require files end with a newline
 (setq-default indent-tabs-mode nil) ; a tab is four spaces
 (setq-default tab-width '4)
+(custom-set-variables
+ '(auto-save-default nil))
 
 ;; FONT COLORIZATION
 (global-font-lock-mode 1)
@@ -158,6 +163,75 @@
   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
       (message "Opening file...")
     (message "Aborting")))
+
+
+;; HELM
+(require 'helm-config)
+(helm-mode 1)
+(require 'helm-gist)
+(require 'helm-git)
+(require 'helm-projectile)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x f") 'helm-for-files)
+
+;; LINES
+(global-linum-mode 1)
+(setq linum-format "%d ")
+(setq linum-format "%4d \u2502 ")
+(require 'highline)
+(highline-mode 1)
+
+;; PROJECTILE
+(require 'projectile)
+(projectile-global-mode)
+
+(require 'color-theme)
+(set-face-attribute 'default nil :family "Menlo" :height 120 :weight 'normal)
+
+;; someday might want to rotate windows if more than 2 of them                          
+(defun swap-windows ()
+ "If you have 2 windows, it swaps them." (interactive) (cond ((not (= (count-windows) 2)
+) (message "You need exactly 2 windows to do this."))
+ (t
+ (let* ((w1 (first (window-list)))
+   (w2 (second (window-list)))
+   (b1 (window-buffer w1))
+   (b2 (window-buffer w2))
+   (s1 (window-start w1))
+   (s2 (window-start w2)))
+ (set-window-buffer w1 b2)
+ (set-window-buffer w2 b1)
+ (set-window-start w1 s2)
+ (set-window-start w2 s1)))))
+
+;;
+;; Never understood why Emacs doesn't have this function.
+;;
+(defun rename-file-and-buffer (new-name)
+ "Renames both current buffer and file it's visiting to NEW-NAME." (interactive "sNew name: ")
+ (let ((name (buffer-name))
+  (filename (buffer-file-name)))
+ (if (not filename)
+  (message "Buffer '%s' is not visiting a file!" name)
+ (if (get-buffer new-name)
+   (message "A buffer named '%s' already exists!" new-name)
+  (progn   (rename-file name new-name 1)   (rename-buffer new-name)    (set-visited-file-name new-name)    (set-buffer-modified-p nil))))))
+
+;;
+;; Never understood why Emacs doesn't have this function, either.
+;;
+(defun move-buffer-file (dir)
+ "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
+ (let* ((name (buffer-name))
+   (filename (buffer-file-name))
+   (dir
+   (if (string-match dir "\\(?:/\\|\\\\)$")
+   (substring dir 0 -1) dir))
+   (newname (concat dir "/" name)))
+
+ (if (not filename)
+  (message "Buffer '%s' is not visiting a file!" name)
+ (progn   (copy-file filename newname 1)  (delete-file filename)  (set-visited-file-name newname)   (set-buffer-modified-p nil)   t)))) 
 
 ;; SCALA
 (add-to-list 'load-path "~/.emacs.d/external/scala-mode")
