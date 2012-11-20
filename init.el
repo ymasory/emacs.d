@@ -17,6 +17,7 @@
 (global-set-key (kbd "M-j") 'just-one-space)
 (global-set-key (kbd "M-k") 'kill-whole-line)
 (global-set-key (kbd "M-l") 'whitespace-mode)
+(global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
 (global-set-key (kbd "M-o") 'ido-recentf-open)
@@ -171,8 +172,8 @@
 (require 'helm-gist)
 (require 'helm-git)
 (require 'helm-projectile)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x f") 'helm-for-files)
+;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
+;; (global-set-key (kbd "C-x f") 'helm-for-files)
 
 ;; LINES
 ;; (global-linum-mode 1)
@@ -238,8 +239,8 @@
 (add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
 (require 'scala-mode)
 (add-hook 'scala-mode-hook
-          (local-set-key (kbd "RET") 'newline-and-indent)
-          (lambda () (whitespace-mode 1))
+          (lambda () (whitespace-mode 1)))
+(add-hook 'scala-mode-hook
           (lambda () (subword-mode 1)))
 
 
