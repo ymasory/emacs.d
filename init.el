@@ -7,7 +7,7 @@
   `(require ,feature ,file 'noerror))
 
 ; ELPA
-(require 'package)
+(require-maybe 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
   (add-to-list 'package-archives source t))
 (add-to-list 'package-archives
@@ -135,7 +135,7 @@
 
 ;; ENSIME
 ;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-;; (require 'ensime)
+;; (require-maybe 'ensime)
 ;; (add-hook 'scala-mode-hook
 ;;           'ensime-scala-mode-hook)
 ; tab --> start completing method/variable
@@ -167,9 +167,9 @@
 (setq scroll-margin 2)
 (setq scroll-step            1
       scroll-conservatively  10000)
-(require 'saveplace)
+(require-maybe 'saveplace)
 (setq-default save-place t)
-(setq require-final-newline t)
+(setq require-maybe-final-newline t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width '2)
 (custom-set-variables
@@ -205,7 +205,7 @@
    ))
 
 ;; IDO
-;; (require 'ido)
+;; (require-maybe 'ido)
 ;; (ido-mode 1)
 ;; (ido-everywhere 1)
 ;; (setq ido-file-extensions-order
@@ -220,7 +220,7 @@
 ;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
 ;; RECENTF
-;; (require 'recentf)
+;; (require-maybe 'recentf)
 ;;  (recentf-mode t)
 ;; (setq recentf-max-saved-items 50)
 ;; (defun ido-recentf-open ()
@@ -231,11 +231,11 @@
 ;;     (message "Aborting")))
 
 ;; HELM
-;; (require 'helm-config)
+;; (require-maybe 'helm-config)
 ;; (helm-mode 1)
-;; (require 'helm-gist)
-;; (require 'helm-git)
-;; (require 'helm-projectile)
+;; (require-maybe 'helm-gist)
+;; (require-maybe 'helm-git)
+;; (require-maybe 'helm-projectile)
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 ;; (global-set-key (kbd "C-x f") 'helm-for-files)
 
@@ -243,17 +243,17 @@
 ;; (global-linum-mode 1)
 ;; (setq linum-format "%d ")
 ;; (setq linum-format "%4d \u2502 ")
-;; (require 'highline)
+;; (require-maybe 'highline)
 ;; (highline-mode 1)
 
 ;; PROJECTILE
-;; (require 'projectile)
+;; (require-maybe 'projectile)
 ;; (projectile-global-mode)
 
 ;; SCALA
 (add-to-list 'load-path "~/.emacs.d/external/scala-mode")
 (add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
-(require 'scala-mode)
+(require-maybe 'scala-mode)
 (add-hook 'scala-mode-hook
           (lambda () (whitespace-mode 1)))
 (add-hook 'scala-mode-hook
@@ -281,11 +281,11 @@
     (message "You need exactly 2 windows to do this."))
    (t
     (let* ((w1 (first (window-list)))
-	   (w2 (second (window-list)))
-	   (b1 (window-buffer w1))
-	   (b2 (window-buffer w2))
-	   (s1 (window-start w1))
-	   (s2 (window-start w2)))
+           (w2 (second (window-list)))
+           (b1 (window-buffer w1))
+           (b2 (window-buffer w2))
+           (s1 (window-start w1))
+           (s2 (window-start w2)))
       (set-window-buffer w1 b2)
       (set-window-buffer w2 b1)
       (set-window-start w1 s2)
