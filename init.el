@@ -11,7 +11,7 @@
 
 ;; KEY BINDINGS
 (global-set-key (kbd "M-a") 'file-cache-add-directory-recursively)
-(global-set-key (kbd "M-e") 'ensime)
+;; (global-set-key (kbd "M-e") 'ensime)
 (global-set-key (kbd "M-h") 'help)
 (global-set-key (kbd "M-p") 'copy-region-as-kill)
 (global-set-key (kbd "M-j") 'just-one-space)
@@ -40,7 +40,7 @@
           'ensime-scala-mode-hook)
 
 ; -- start ensime
-(global-set-key (kbd "M-e") 'ensime)
+(global-set-key (kbd "C-c e") 'ensime)
 ; -- completions
 ; tab --> start completing method/variable
 ; -- refactor
@@ -70,6 +70,7 @@
 ; -- scalex
 (global-set-key (kbd "C-c v") 'ensime-scalex-choose-current-result)
 (global-set-key (kbd "C-c x") 'ensime-scalex)
+; -- semantic highlighting colors
 (setq ensime-sem-high-faces
   '(
    (var . (:slant italic :foreground "#fa8072"))
@@ -85,30 +86,22 @@
    ))
 
 ;; GENERAL
-(setq-default column-number-mode t) ; show column numbers
+(setq-default column-number-mode t)
 (setq inhibit-splash-screen t)
 (setq confirm-nonexistent-file-or-buffer nil)
 (setq make-backup-files nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (menu-bar-mode -1)
-(setq scroll-margin 2) ; start scrolling when 2 lines from top/bottom
+(setq scroll-margin 2)
 (setq scroll-step            1
-      scroll-conservatively  10000) ; smooth scrolling
-(require 'saveplace) ; save cursor location
+      scroll-conservatively  10000)
+(require 'saveplace)
 (setq-default save-place t)
-(setq require-final-newline t) ; require files end with a newline
-(setq-default indent-tabs-mode nil) ; a tab is four spaces
-(setq-default tab-width '4)
+(setq require-final-newline t)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width '2)
 (custom-set-variables
  '(auto-save-default nil))
-
-;; FONT COLORIZATION
-(global-font-lock-mode 1)
-(setq font-lock-maximum-decoration t)
-(setq font-lock-auto-fontify t)
-(setq font-lock-use-fonts nil)
-(setq font-lock-use-colors t)
-(add-hook 'compilation-mode-hook 'font-lock-mode)
 
 ;; FREAK OUT DUE TO CARRIAGE RETURNS
 (custom-set-faces
@@ -140,19 +133,19 @@
    ))
 
 ;; IDO
-(require 'ido)
-(ido-mode 1)
-(ido-everywhere 1)
+;; (require 'ido)
+;; (ido-mode 1)
+;; (ido-everywhere 1)
 ;; (setq ido-file-extensions-order
 ;;       '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
-(setq confirm-nonexistent-file-or-buffer nil)
-(setq ido-enable-flex-matching t)
-(setq ido-create-new-buffer 'always)
-(setq ido-enable-tramp-completion nil)
-(setq ido-enable-last-directory-history nil)
-(setq ido-confirm-unique-completion nil) ;; wait for RET, even for unique?
-(setq ido-show-dot-for-dired t) ;; put . as the first item
-(setq ido-use-filename-at-point t) ;; prefer file names near point
+;; (setq confirm-nonexistent-file-or-buffer nil)
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-create-new-buffer 'always)
+;; (setq ido-enable-tramp-completion nil)
+;; (setq ido-enable-last-directory-history nil)
+;; (setq ido-confirm-unique-completion nil) ;; wait for RET, even for unique?
+;; (setq ido-show-dot-for-dired t) ;; put . as the first item
+;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
 ;; RECENTF
 (require 'recentf)
@@ -167,11 +160,11 @@
 
 
 ;; HELM
-(require 'helm-config)
-(helm-mode 1)
-(require 'helm-gist)
-(require 'helm-git)
-(require 'helm-projectile)
+;; (require 'helm-config)
+;; (helm-mode 1)
+;; (require 'helm-gist)
+;; (require 'helm-git)
+;; (require 'helm-projectile)
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 ;; (global-set-key (kbd "C-x f") 'helm-for-files)
 
@@ -185,54 +178,6 @@
 ;; PROJECTILE
 (require 'projectile)
 (projectile-global-mode)
-
-(require 'color-theme)
-(set-face-attribute 'default nil :family "Menlo" :height 120 :weight 'normal)
-
-;; someday might want to rotate windows if more than 2 of them                          
-(defun swap-windows ()
- "If you have 2 windows, it swaps them." (interactive) (cond ((not (= (count-windows) 2)
-) (message "You need exactly 2 windows to do this."))
- (t
- (let* ((w1 (first (window-list)))
-   (w2 (second (window-list)))
-   (b1 (window-buffer w1))
-   (b2 (window-buffer w2))
-   (s1 (window-start w1))
-   (s2 (window-start w2)))
- (set-window-buffer w1 b2)
- (set-window-buffer w2 b1)
- (set-window-start w1 s2)
- (set-window-start w2 s1)))))
-
-;;
-;; Never understood why Emacs doesn't have this function.
-;;
-(defun rename-file-and-buffer (new-name)
- "Renames both current buffer and file it's visiting to NEW-NAME." (interactive "sNew name: ")
- (let ((name (buffer-name))
-  (filename (buffer-file-name)))
- (if (not filename)
-  (message "Buffer '%s' is not visiting a file!" name)
- (if (get-buffer new-name)
-   (message "A buffer named '%s' already exists!" new-name)
-  (progn   (rename-file name new-name 1)   (rename-buffer new-name)    (set-visited-file-name new-name)    (set-buffer-modified-p nil))))))
-
-;;
-;; Never understood why Emacs doesn't have this function, either.
-;;
-(defun move-buffer-file (dir)
- "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
- (let* ((name (buffer-name))
-   (filename (buffer-file-name))
-   (dir
-   (if (string-match dir "\\(?:/\\|\\\\)$")
-   (substring dir 0 -1) dir))
-   (newname (concat dir "/" name)))
-
- (if (not filename)
-  (message "Buffer '%s' is not visiting a file!" name)
- (progn   (copy-file filename newname 1)  (delete-file filename)  (set-visited-file-name newname)   (set-buffer-modified-p nil)   t)))) 
 
 ;; SCALA
 (add-to-list 'load-path "~/.emacs.d/external/scala-mode")
@@ -255,3 +200,43 @@
 (autoload
   'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
+;; UTILITY FUNCTIONS
+(defun swap-windows ()
+ "If you have 2 windows, it swaps them." (interactive) (cond ((not (= (count-windows) 2)
+) (message "You need exactly 2 windows to do this."))
+ (t
+ (let* ((w1 (first (window-list)))
+   (w2 (second (window-list)))
+   (b1 (window-buffer w1))
+   (b2 (window-buffer w2))
+   (s1 (window-start w1))
+   (s2 (window-start w2)))
+ (set-window-buffer w1 b2)
+ (set-window-buffer w2 b1)
+ (set-window-start w1 s2)
+ (set-window-start w2 s1)))))
+
+(defun rename-file-and-buffer (new-name)
+ "Renames both current buffer and file it's visiting to NEW-NAME." (interactive "sNew name: ")
+ (let ((name (buffer-name))
+  (filename (buffer-file-name)))
+ (if (not filename)
+  (message "Buffer '%s' is not visiting a file!" name)
+ (if (get-buffer new-name)
+   (message "A buffer named '%s' already exists!" new-name)
+  (progn   (rename-file name new-name 1)   (rename-buffer new-name)    (set-visited-file-name new-name)    (set-buffer-modified-p nil))))))
+
+(defun move-buffer-file (dir)
+ "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
+ (let* ((name (buffer-name))
+   (filename (buffer-file-name))
+   (dir
+   (if (string-match dir "\\(?:/\\|\\\\)$")
+   (substring dir 0 -1) dir))
+   (newname (concat dir "/" name)))
+
+ (if (not filename)
+  (message "Buffer '%s' is not visiting a file!" name)
+ (progn   (copy-file filename newname 1)  (delete-file filename)  (set-visited-file-name newname)   (set-buffer-modified-p nil)   t)))) 
+
