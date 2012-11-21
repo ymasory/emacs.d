@@ -14,30 +14,31 @@
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "M-d") 'kill-word)
-  (global-set-key (kbd "M-e") 'execute-extended-command)
+  (global-set-key (kbd "M-e") 'UNBOUND)
 (global-set-key (kbd "M-f") 'forward-word)
-  (global-set-key (kbd "M-g") 'execute-extended-command)
-  (global-set-key (kbd "M-h") 'execute-extended-command)
+  (global-set-key (kbd "M-g") 'UNBOUND)
+  (global-set-key (kbd "M-h") 'UNBOUND)
 (global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-j") 'just-one-space)
 (global-set-key (kbd "M-k") 'kill-whole-line)
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
-; M-n is not remapped, system new window
+  ; M-n is not remapped, system new window
 (global-set-key (kbd "M-o") 'ido-recentf-open)
 (global-set-key (kbd "M-p") 'copy-region-as-kill)
-; M-q is not remapped, system quit
+  ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
-  (global-set-key (kbd "M-s") 'execute-extended-command)
-; M-t is not remapped, system new tab
+  (global-set-key (kbd "M-s") 'UNBOUND)
+  ; M-t is not remapped, system new tab
 (global-set-key (kbd "M-u") 'undo)
-; M-v is not remapped, system paste
-; M-w is not remapped, system close window
-  (global-set-key (kbd "M-x") 'execute-extended-command)
-  (global-set-key (kbd "M-y") 'execute-extended-command)
+  ; M-v is not remapped, system paste
+  ; M-w is not remapped, system close window
+  (global-set-key (kbd "M-x") 'UNBOUND)
+  (global-set-key (kbd "M-y") 'UNBOUND)
 (global-set-key (kbd "M-z") 'zap-to-char)
 (global-set-key (kbd "M-;") 'comment-dwim)
 (global-set-key (kbd "M-/") 'dabbrev-expand)
+(global-set-key (kbd "M-\\") 'delete-horizontal-space)
 
 
 ;; KEY BINDINGS, C-ξ
@@ -60,7 +61,7 @@
 (global-set-key "\C-q" 'quoted-insert)
 (global-set-key "\C-r" 'isearch-backward)
 (global-set-key "\C-s" 'isearch-forward)
-  (global-set-key "\C-t" 'execute-extended-command)
+  (global-set-key "\C-t" 'UNBOUND)
 (global-set-key "\C-u" 'universal-argument)
 (global-set-key "\C-v" 'scroll-up-command)
 (global-set-key "\C-w" 'backward-kill-word)
@@ -70,32 +71,32 @@
 
 
 ;; KEY BINDINGS, C-ξ C-ξ
-  (global-set-key "\C-c\C-a" 'execute-extended-command)
-  (global-set-key "\C-c\C-b" 'execute-extended-command)
-  (global-set-key "\C-c\C-c" 'execute-extended-command)
-  (global-set-key "\C-c\C-d" 'execute-extended-command)
-  (global-set-key "\C-c\C-e" 'execute-extended-command)
-  (global-set-key "\C-c\C-f" 'execute-extended-command)
-  (global-set-key "\C-c\C-g" 'execute-extended-command)
-  (global-set-key "\C-c\C-h" 'execute-extended-command)
-  (global-set-key "\C-c\C-i" 'execute-extended-command)
-  (global-set-key "\C-c\C-j" 'execute-extended-command)
+  (global-set-key "\C-c\C-a" 'UNBOUND)
+  (global-set-key "\C-c\C-b" 'UNBOUND)
+  (global-set-key "\C-c\C-c" 'UNBOUND)
+  (global-set-key "\C-c\C-d" 'UNBOUND)
+  (global-set-key "\C-c\C-e" 'UNBOUND)
+  (global-set-key "\C-c\C-f" 'UNBOUND)
+  (global-set-key "\C-c\C-g" 'UNBOUND)
+  (global-set-key "\C-c\C-h" 'UNBOUND)
+  (global-set-key "\C-c\C-i" 'UNBOUND)
+  (global-set-key "\C-c\C-j" 'UNBOUND)
 (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key "\C-c\C-l" 'downcase-word)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-  (global-set-key "\C-c\C-n" 'execute-extended-command)
-  (global-set-key "\C-c\C-o" 'execute-extended-command)
-  (global-set-key "\C-c\C-p" 'execute-extended-command)
-  (global-set-key "\C-c\C-q" 'execute-extended-command)
+  (global-set-key "\C-c\C-n" 'UNBOUND)
+  (global-set-key "\C-c\C-o" 'UNBOUND)
+  (global-set-key "\C-c\C-p" 'UNBOUND)
+  (global-set-key "\C-c\C-q" 'UNBOUND)
 (global-set-key "\C-c\C-r" 'string-rectangle)
-  (global-set-key "\C-c\C-s" 'execute-extended-command)
-  (global-set-key "\C-c\C-t" 'execute-extended-command)
+  (global-set-key "\C-c\C-s" 'UNBOUND)
+  (global-set-key "\C-c\C-t" 'UNBOUND)
 (global-set-key "\C-c\C-u" 'upcase-word)
 (global-set-key "\C-c\C-v" 'scroll-down-command)
-  (global-set-key "\C-c\C-w" 'execute-extended-command)
-(global-set-key "\C-c\C-x" 'execute-extended-command)
-  (global-set-key "\C-c\C-y" 'execute-extended-command)
-  (global-set-key "\C-c\C-z" 'execute-extended-command)
+  (global-set-key "\C-c\C-w" 'UNBOUND)
+  (global-set-key "\C-c\C-x" 'UNBOUND)
+  (global-set-key "\C-c\C-y" 'UNBOUND)
+  (global-set-key "\C-c\C-z" 'UNBOUND)
 
 
 ;; KEY BINDINGS, C-ξ ξ
@@ -105,21 +106,21 @@
 (global-set-key (kbd "C-c d") 'ensime-edit-definition) ; jump to definition
 (global-set-key (kbd "C-c e") 'ensime)
 (global-set-key (kbd "C-c f") 'ensime-format-source) ; scalariform
-  (global-set-key (kbd "C-c g") 'execute-extended-command)
-  (global-set-key (kbd "C-c h") 'execute-extended-command)
+  (global-set-key (kbd "C-c g") 'UNBOUND)
+  (global-set-key (kbd "C-c h") 'UNBOUND)
 (global-set-key (kbd "C-c i") 'ensime-inspect-type-at-point)
-  (global-set-key (kbd "C-c j") 'execute-extended-command)
+  (global-set-key (kbd "C-c j") 'UNBOUND)
 (global-set-key (kbd "C-c k") 'ensime-typecheck-current-file)
 (global-set-key (kbd "C-c K") 'ensime-typecheck-all)
-  (global-set-key (kbd "C-c l") 'execute-extended-command)
+  (global-set-key (kbd "C-c l") 'UNBOUND)
 (global-set-key (kbd "C-c m") 'ensime-import-type-at-point)
-  (global-set-key (kbd "C-c n") 'execute-extended-command)
+  (global-set-key (kbd "C-c n") 'UNBOUND)
 (global-set-key (kbd "C-c o") 'ensime-refactor-organize-imports)
 (global-set-key (kbd "C-c p") 'ensime-show-all-errors-and-warnings)
-  (global-set-key (kbd "C-c q") 'execute-extended-command)
+  (global-set-key (kbd "C-c q") 'UNBOUND)
 (global-set-key (kbd "C-c r") 'ensime-refactor-rename)
 (global-set-key (kbd "C-c s") 'ensime-search)
-  (global-set-key (kbd "C-c t") 'execute-extended-command)
+  (global-set-key (kbd "C-c t") 'UNBOUND)
 (global-set-key (kbd "C-c u") 'ensime-show-uses-of-symbol-at-point)
 (global-set-key (kbd "C-c v") 'ensime-scalex-choose-current-result)
 (global-set-key (kbd "C-c w") 'ensime-pop-find-definition-stack) ; backwards
@@ -128,10 +129,10 @@
 (global-set-key (kbd "C-c z") 'ensime-inf-switch) ; scala interpreter
 
 ;; ENSIME
-(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-(require 'ensime)
-(add-hook 'scala-mode-hook
-          'ensime-scala-mode-hook)
+;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
+;; (require 'ensime)
+;; (add-hook 'scala-mode-hook
+;;           'ensime-scala-mode-hook)
 ; tab --> start completing method/variable
 ; see type,  'q' quit, 'return' enter hyperlink, '.' forward,  ',' back
 ; M-n/p go through errors
@@ -223,7 +224,6 @@
   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
       (message "Opening file...")
     (message "Aborting")))
-
 
 ;; HELM
 ;; (require 'helm-config)
@@ -317,4 +317,7 @@
         (set-buffer-modified-p nil)
         t))))
 
-
+(defun UNBOUND ()
+  "UNBOUND"
+  (interactive)
+  (message "UNBOUND KEY"))
