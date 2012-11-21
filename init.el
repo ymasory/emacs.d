@@ -98,7 +98,7 @@
   (global-set-key "\C-c\C-t" 'UNBOUND)
 (global-set-key "\C-c\C-u" 'upcase-word)
 (global-set-key "\C-c\C-v" 'scroll-down-command)
-  (global-set-key "\C-c\C-w" 'UNBOUND)
+(global-set-key "\C-c\C-w" 'whitespace-mode)
   (global-set-key "\C-c\C-x" 'UNBOUND)
   (global-set-key "\C-c\C-y" 'UNBOUND)
   (global-set-key "\C-c\C-z" 'UNBOUND)
