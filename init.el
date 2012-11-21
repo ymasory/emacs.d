@@ -9,67 +9,133 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
-;; KEY BINDINGS
+;; KEY BINDINGS, M-ξ
 (global-set-key (kbd "M-a") 'file-cache-add-directory-recursively)
-;; (global-set-key (kbd "M-e") 'ensime)
-(global-set-key (kbd "M-h") 'help)
-(global-set-key (kbd "M-p") 'copy-region-as-kill)
+(global-set-key (kbd "M-b") 'backward-word)
+(global-set-key (kbd "M-c") 'capitalize-word)
+(global-set-key (kbd "M-d") 'kill-word)
+  (global-set-key (kbd "M-e") 'execute-extended-command)
+(global-set-key (kbd "M-f") 'forward-word)
+  (global-set-key (kbd "M-g") 'execute-extended-command)
+  (global-set-key (kbd "M-h") 'execute-extended-command)
+(global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-j") 'just-one-space)
 (global-set-key (kbd "M-k") 'kill-whole-line)
-(global-set-key (kbd "M-l") 'whitespace-mode)
 (global-set-key (kbd "M-l") 'goto-line)
-(global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
+; M-n is not remapped, system new window
 (global-set-key (kbd "M-o") 'ido-recentf-open)
+(global-set-key (kbd "M-p") 'copy-region-as-kill)
+; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
+  (global-set-key (kbd "M-s") 'execute-extended-command)
+; M-t is not remapped, system new tab
 (global-set-key (kbd "M-u") 'undo)
+; M-v is not remapped, system paste
+; M-w is not remapped, system close window
+  (global-set-key (kbd "M-x") 'execute-extended-command)
+  (global-set-key (kbd "M-y") 'execute-extended-command)
+(global-set-key (kbd "M-z") 'zap-to-char)
+(global-set-key (kbd "M-;") 'comment-dwim)
+(global-set-key (kbd "M-/") 'dabbrev-expand)
+
+
+;; KEY BINDINGS, C-ξ
+(global-set-key "\C-a" 'move-beginning-of-line)
+(global-set-key "\C-b" 'backward-char)
+;; C-c is an emacs prefix
+(global-set-key "\C-d" 'delete-char)
+(global-set-key "\C-e" 'move-end-of-line)
+(global-set-key "\C-f" 'forward-char)
+(global-set-key "\C-g" 'keyboard-quit)
+(global-set-key "\C-h" 'help)
+(global-set-key "\C-i" 'indent-for-tab)
+(global-set-key "\C-j" 'newline-and-indent)
+(global-set-key "\C-k" 'kill-line)
+(global-set-key "\C-l" 'recenter-to-bottom)
+(global-set-key "\C-m" 'newline)
+(global-set-key "\C-n" 'next-line)
+(global-set-key "\C-o" 'open-line)
+(global-set-key "\C-p" 'previous-line)
+(global-set-key "\C-q" 'quoted-insert)
+(global-set-key "\C-r" 'isearch-backward)
+(global-set-key "\C-s" 'isearch-forward)
+  (global-set-key "\C-t" 'execute-extended-command)
+(global-set-key "\C-u" 'universal-argument)
+(global-set-key "\C-v" 'scroll-up-command)
 (global-set-key "\C-w" 'backward-kill-word)
-(global-set-key "\C-c\C-l" 'downcase-word)
-(global-set-key "\C-c\C-u" 'upcase-word)
-(global-set-key "\C-c\C-r" 'string-rectangle)
-(global-set-key "\C-c\C-v" 'scroll-down-command)
+;; C-x is an emacs prefix
+(global-set-key "\C-z" 'suspend-frame)
+;; C-; comments without region
+
+
+;; KEY BINDINGS, C-ξ C-ξ
+  (global-set-key "\C-c\C-a" 'execute-extended-command)
+  (global-set-key "\C-c\C-b" 'execute-extended-command)
+  (global-set-key "\C-c\C-c" 'execute-extended-command)
+  (global-set-key "\C-c\C-d" 'execute-extended-command)
+  (global-set-key "\C-c\C-e" 'execute-extended-command)
+  (global-set-key "\C-c\C-f" 'execute-extended-command)
+  (global-set-key "\C-c\C-g" 'execute-extended-command)
+  (global-set-key "\C-c\C-h" 'execute-extended-command)
+  (global-set-key "\C-c\C-i" 'execute-extended-command)
+  (global-set-key "\C-c\C-j" 'execute-extended-command)
 (global-set-key "\C-c\C-k" 'kill-region)
-(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-l" 'downcase-word)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-(global-set-key "\C-x\C-m" 'execute-extended-command)
+  (global-set-key "\C-c\C-n" 'execute-extended-command)
+  (global-set-key "\C-c\C-o" 'execute-extended-command)
+  (global-set-key "\C-c\C-p" 'execute-extended-command)
+  (global-set-key "\C-c\C-q" 'execute-extended-command)
+(global-set-key "\C-c\C-r" 'string-rectangle)
+  (global-set-key "\C-c\C-s" 'execute-extended-command)
+  (global-set-key "\C-c\C-t" 'execute-extended-command)
+(global-set-key "\C-c\C-u" 'upcase-word)
+(global-set-key "\C-c\C-v" 'scroll-down-command)
+  (global-set-key "\C-c\C-w" 'execute-extended-command)
+(global-set-key "\C-c\C-x" 'execute-extended-command)
+  (global-set-key "\C-c\C-y" 'execute-extended-command)
+  (global-set-key "\C-c\C-z" 'execute-extended-command)
+
+
+;; KEY BINDINGS, C-ξ ξ
+(global-set-key (kbd "C-c a") 'ensime-refactor-add-import)
+(global-set-key (kbd "C-c b") 'ensime-sbt)
+(global-set-key (kbd "C-c c") 'ensime-sbt-do-compile)
+(global-set-key (kbd "C-c d") 'ensime-edit-definition) ; jump to definition
+(global-set-key (kbd "C-c e") 'ensime)
+(global-set-key (kbd "C-c f") 'ensime-format-source) ; scalariform
+  (global-set-key (kbd "C-c g") 'execute-extended-command)
+  (global-set-key (kbd "C-c h") 'execute-extended-command)
+(global-set-key (kbd "C-c i") 'ensime-inspect-type-at-point)
+  (global-set-key (kbd "C-c j") 'execute-extended-command)
+(global-set-key (kbd "C-c k") 'ensime-typecheck-current-file)
+(global-set-key (kbd "C-c K") 'ensime-typecheck-all)
+  (global-set-key (kbd "C-c l") 'execute-extended-command)
+(global-set-key (kbd "C-c m") 'ensime-import-type-at-point)
+  (global-set-key (kbd "C-c n") 'execute-extended-command)
+(global-set-key (kbd "C-c o") 'ensime-refactor-organize-imports)
+(global-set-key (kbd "C-c p") 'ensime-show-all-errors-and-warnings)
+  (global-set-key (kbd "C-c q") 'execute-extended-command)
+(global-set-key (kbd "C-c r") 'ensime-refactor-rename)
+(global-set-key (kbd "C-c s") 'ensime-search)
+  (global-set-key (kbd "C-c t") 'execute-extended-command)
+(global-set-key (kbd "C-c u") 'ensime-show-uses-of-symbol-at-point)
+(global-set-key (kbd "C-c v") 'ensime-scalex-choose-current-result)
+(global-set-key (kbd "C-c w") 'ensime-pop-find-definition-stack) ; backwards
+(global-set-key (kbd "C-c x") 'ensime-scalex)
+(global-set-key (kbd "C-c y") 'ensime-show-doc-for-symbol-at-point) ; scaladocs
+(global-set-key (kbd "C-c z") 'ensime-inf-switch) ; scala interpreter
 
 ;; ENSIME
 (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
 (require 'ensime)
 (add-hook 'scala-mode-hook
           'ensime-scala-mode-hook)
-
-; -- start ensime
-(global-set-key (kbd "C-c e") 'ensime)
-; -- completions
 ; tab --> start completing method/variable
-; -- refactor
-(global-set-key (kbd "C-c a") 'ensime-refactor-add-import)
-(global-set-key (kbd "C-c o") 'ensime-refactor-organize-imports)
-(global-set-key (kbd "C-c m") 'ensime-import-type-at-point)
-(global-set-key (kbd "C-c r") 'ensime-refactor-rename)
-; -- inspections
-;; (global-set-key (kbd "C-c y") 'ensime-show-doc-for-symbol-at-point) ; scaladocs
 ; see type,  'q' quit, 'return' enter hyperlink, '.' forward,  ',' back
-(global-set-key (kbd "C-c i") 'ensime-inspect-type-at-point)
-; -- format
-(global-set-key (kbd "C-c f") 'ensime-format-source) ; scalariform
-; -- navigation
-(global-set-key (kbd "C-c d") 'ensime-edit-definition) ; jump to definition
-(global-set-key (kbd "C-c s") 'ensime-search)
-(global-set-key (kbd "C-c u") 'ensime-show-uses-of-symbol-at-point)
-(global-set-key (kbd "C-c w") 'ensime-pop-find-definition-stack) ; backwards
-; -- compilation
-(global-set-key (kbd "C-c b") 'ensime-sbt)
-(global-set-key (kbd "C-c c") 'ensime-sbt-do-compile)
-(global-set-key (kbd "C-c k") 'ensime-typecheck-current-file)
-(global-set-key (kbd "C-c K") 'ensime-typecheck-all)
-(global-set-key (kbd "C-c p") 'ensime-show-all-errors-and-warnings)
-(global-set-key (kbd "C-c z") 'ensime-inf-switch) ; scala interpreter
 ; M-n/p go through errors
-; -- scalex
-(global-set-key (kbd "C-c v") 'ensime-scalex-choose-current-result)
-(global-set-key (kbd "C-c x") 'ensime-scalex)
+
 ; -- semantic highlighting colors
 (setq ensime-sem-high-faces
   '(
@@ -218,25 +284,37 @@
  (set-window-start w2 s1)))))
 
 (defun rename-file-and-buffer (new-name)
- "Renames both current buffer and file it's visiting to NEW-NAME." (interactive "sNew name: ")
- (let ((name (buffer-name))
-  (filename (buffer-file-name)))
- (if (not filename)
-  (message "Buffer '%s' is not visiting a file!" name)
- (if (get-buffer new-name)
-   (message "A buffer named '%s' already exists!" new-name)
-  (progn   (rename-file name new-name 1)   (rename-buffer new-name)    (set-visited-file-name new-name)    (set-buffer-modified-p nil))))))
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file name new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
 
 (defun move-buffer-file (dir)
- "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
- (let* ((name (buffer-name))
-   (filename (buffer-file-name))
-   (dir
-   (if (string-match dir "\\(?:/\\|\\\\)$")
-   (substring dir 0 -1) dir))
-   (newname (concat dir "/" name)))
+  "Moves both current buffer and file it's visiting to DIR."
+  (interactive "DNew directory: ")
+  (let* ((name (buffer-name))
+         (filename (buffer-file-name))
+         (dir
+          (if (string-match dir "\\(?:/\\|\\\\)$")
+              (substring dir 0 -1) dir))
+         (newname (concat dir "/" name)))
 
- (if (not filename)
-  (message "Buffer '%s' is not visiting a file!" name)
- (progn   (copy-file filename newname 1)  (delete-file filename)  (set-visited-file-name newname)   (set-buffer-modified-p nil)   t)))) 
+    (if (not filename)
+        (message "Buffer '%s' is not visiting a file!" name)
+      (progn
+        (copy-file filename newname 1)
+        (delete-file filename)
+        (set-visited-file-name newname)
+        (set-buffer-modified-p nil)
+        t))))
+
 
