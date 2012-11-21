@@ -7,7 +7,7 @@
   `(require ,feature ,file 'noerror))
 
 ; ELPA
-(require-maybe 'package)
+(require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
   (add-to-list 'package-archives source t))
 (add-to-list 'package-archives
@@ -49,13 +49,13 @@
 ;; KEY BINDINGS, C-ξ
 (global-set-key "\C-a" 'move-beginning-of-line)
 (global-set-key "\C-b" 'backward-char)
-;; C-c is an emacs prefix
+; C-c is an emacs prefix
 (global-set-key "\C-d" 'delete-char)
 (global-set-key "\C-e" 'move-end-of-line)
 (global-set-key "\C-f" 'forward-char)
 (global-set-key "\C-g" 'keyboard-quit)
 (global-set-key "\C-h" 'help)
-(global-set-key "\C-i" 'indent-for-tab)
+; C-i is tab
 (global-set-key "\C-j" 'newline-and-indent)
 (global-set-key "\C-k" 'kill-line)
 (global-set-key "\C-l" 'recenter-to-bottom)
@@ -70,9 +70,9 @@
 (global-set-key "\C-u" 'universal-argument)
 (global-set-key "\C-v" 'scroll-up-command)
 (global-set-key "\C-w" 'backward-kill-word)
-;; C-x is an emacs prefix
+; C-x is an emacs prefix
 (global-set-key "\C-z" 'suspend-frame)
-;; C-; comments without region
+; C-; comments without region
 
 
 ;; KEY BINDINGS, C-ξ C-ξ
@@ -135,7 +135,7 @@
 
 ;; ENSIME
 ;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-;; (require-maybe 'ensime)
+;; (require 'ensime)
 ;; (add-hook 'scala-mode-hook
 ;;           'ensime-scala-mode-hook)
 ; tab --> start completing method/variable
@@ -167,7 +167,7 @@
 (setq scroll-margin 2)
 (setq scroll-step            1
       scroll-conservatively  10000)
-(require-maybe 'saveplace)
+(require 'saveplace)
 (setq-default save-place t)
 (setq require-final-newline t)
 (setq-default indent-tabs-mode nil)
@@ -205,7 +205,7 @@
    ))
 
 ;; IDO
-;; (require-maybe 'ido)
+;; (require 'ido)
 ;; (ido-mode 1)
 ;; (ido-everywhere 1)
 ;; (setq ido-file-extensions-order
@@ -220,7 +220,7 @@
 ;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
 ;; RECENTF
-;; (require-maybe 'recentf)
+;; (require 'recentf)
 ;;  (recentf-mode t)
 ;; (setq recentf-max-saved-items 50)
 ;; (defun ido-recentf-open ()
@@ -231,11 +231,11 @@
 ;;     (message "Aborting")))
 
 ;; HELM
-;; (require-maybe 'helm-config)
+;; (require 'helm-config)
 ;; (helm-mode 1)
-;; (require-maybe 'helm-gist)
-;; (require-maybe 'helm-git)
-;; (require-maybe 'helm-projectile)
+;; (require 'helm-gist)
+;; (require 'helm-git)
+;; (require 'helm-projectile)
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 ;; (global-set-key (kbd "C-x f") 'helm-for-files)
 
@@ -243,17 +243,17 @@
 ;; (global-linum-mode 1)
 ;; (setq linum-format "%d ")
 ;; (setq linum-format "%4d \u2502 ")
-;; (require-maybe 'highline)
+;; (require 'highline)
 ;; (highline-mode 1)
 
 ;; PROJECTILE
-;; (require-maybe 'projectile)
+;; (require 'projectile)
 ;; (projectile-global-mode)
 
 ;; SCALA
 (add-to-list 'load-path "~/.emacs.d/external/scala-mode")
 (add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
-(require-maybe 'scala-mode)
+(require 'scala-mode)
 (add-hook 'scala-mode-hook
           (lambda () (whitespace-mode 1)))
 (add-hook 'scala-mode-hook
@@ -274,19 +274,22 @@
 
 ;; UTILITY FUNCTIONS
 (defun swap-windows ()
- "If you have 2 windows, it swaps them." (interactive) (cond ((not (= (count-windows) 2)
-) (message "You need exactly 2 windows to do this."))
- (t
- (let* ((w1 (first (window-list)))
-   (w2 (second (window-list)))
-   (b1 (window-buffer w1))
-   (b2 (window-buffer w2))
-   (s1 (window-start w1))
-   (s2 (window-start w2)))
- (set-window-buffer w1 b2)
- (set-window-buffer w2 b1)
- (set-window-start w1 s2)
- (set-window-start w2 s1)))))
+  "If you have 2 windows, it swaps them."
+  (interactive)
+  (cond
+   ((not (= (count-windows) 2))
+    (message "You need exactly 2 windows to do this."))
+   (t
+    (let* ((w1 (first (window-list)))
+	   (w2 (second (window-list)))
+	   (b1 (window-buffer w1))
+	   (b2 (window-buffer w2))
+	   (s1 (window-start w1))
+	   (s2 (window-start w2)))
+      (set-window-buffer w1 b2)
+      (set-window-buffer w2 b1)
+      (set-window-start w1 s2)
+      (set-window-start w2 s1)))))
 
 (defun rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
