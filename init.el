@@ -1,8 +1,13 @@
+;; PATH
 (add-to-list 'load-path "~/.emacs.d/myext")
 
+;; REQUIRE-MAYBE
+(defmacro require-maybe (feature &optional file)
+  "*Try to require FEATURE, but don't signal an error if `require' fails."
+  `(require ,feature ,file 'noerror))
+
 ; ELPA
-(require 'package)
-(require 'package)
+(require-maybe 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
   (add-to-list 'package-archives source t))
 (add-to-list 'package-archives
@@ -130,7 +135,7 @@
 
 ;; ENSIME
 ;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-;; (require 'ensime)
+;; (require-maybe 'ensime)
 ;; (add-hook 'scala-mode-hook
 ;;           'ensime-scala-mode-hook)
 ; tab --> start completing method/variable
@@ -162,7 +167,7 @@
 (setq scroll-margin 2)
 (setq scroll-step            1
       scroll-conservatively  10000)
-(require 'saveplace)
+(require-maybe 'saveplace)
 (setq-default save-place t)
 (setq require-final-newline t)
 (setq-default indent-tabs-mode nil)
@@ -200,7 +205,7 @@
    ))
 
 ;; IDO
-;; (require 'ido)
+;; (require-maybe 'ido)
 ;; (ido-mode 1)
 ;; (ido-everywhere 1)
 ;; (setq ido-file-extensions-order
@@ -215,7 +220,7 @@
 ;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
 ;; RECENTF
-(require 'recentf)
+(require-maybe 'recentf)
  (recentf-mode t)
 (setq recentf-max-saved-items 50)
 (defun ido-recentf-open ()
@@ -226,11 +231,11 @@
     (message "Aborting")))
 
 ;; HELM
-;; (require 'helm-config)
+;; (require-maybe 'helm-config)
 ;; (helm-mode 1)
-;; (require 'helm-gist)
-;; (require 'helm-git)
-;; (require 'helm-projectile)
+;; (require-maybe 'helm-gist)
+;; (require-maybe 'helm-git)
+;; (require-maybe 'helm-projectile)
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 ;; (global-set-key (kbd "C-x f") 'helm-for-files)
 
@@ -238,17 +243,17 @@
 ;; (global-linum-mode 1)
 ;; (setq linum-format "%d ")
 ;; (setq linum-format "%4d \u2502 ")
-;; (require 'highline)
+;; (require-maybe 'highline)
 ;; (highline-mode 1)
 
 ;; PROJECTILE
-(require 'projectile)
-(projectile-global-mode)
+;; (require-maybe 'projectile)
+;; (projectile-global-mode)
 
 ;; SCALA
 (add-to-list 'load-path "~/.emacs.d/external/scala-mode")
 (add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
-(require 'scala-mode)
+(require-maybe 'scala-mode)
 (add-hook 'scala-mode-hook
           (lambda () (whitespace-mode 1)))
 (add-hook 'scala-mode-hook
