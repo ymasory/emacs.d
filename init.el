@@ -76,7 +76,7 @@
 
 
 ;; KEY BINDINGS, C-ξ C-ξ
-  (global-set-key "\C-c\C-a" 'UNBOUND)
+(global-set-key "\C-c\C-a" 'apropos)
   (global-set-key "\C-c\C-b" 'UNBOUND)
   (global-set-key "\C-c\C-c" 'UNBOUND)
   (global-set-key "\C-c\C-d" 'UNBOUND)
@@ -133,30 +133,6 @@
 (global-set-key (kbd "C-c y") 'ensime-show-doc-for-symbol-at-point) ; scaladocs
 (global-set-key (kbd "C-c z") 'ensime-inf-switch) ; scala interpreter
 
-;; ENSIME
-;; (add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-;; (require-maybe 'ensime)
-;; (add-hook 'scala-mode-hook
-;;           'ensime-scala-mode-hook)
-; tab --> start completing method/variable
-; see type,  'q' quit, 'return' enter hyperlink, '.' forward,  ',' back
-; M-n/p go through errors
-
-; -- semantic highlighting colors
-(setq ensime-sem-high-faces
-  '(
-   (var . (:slant italic :foreground "#fa8072"))
-   (val . (:foreground "#cdbe70"))
-   (varField . (:foreground "#fa8072" :bold t :slant italic))
-   (valField . (:foreground "#cdbe70" :slant italic))
-   (functionCall . (:foreground "#7ec0ee" :slant italic))
-   (param . (:foreground "#ee7942"))
-   (class . (:foreground "#76eec6"))
-   (trait . (:foreground "#7CCD7C"))
-   (object . (:italic t :foreground "#76eec6"))
-   (package . font-lock-preprocessor-face)
-   ))
-
 ;; GENERAL
 (setq-default column-number-mode t)
 (setq inhibit-splash-screen t)
@@ -165,21 +141,19 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (menu-bar-mode -1)
 (setq scroll-margin 2)
-(setq scroll-step            1
-      scroll-conservatively  10000)
+(setq scroll-step 1 scroll-conservatively 10000)
 (require-maybe 'saveplace)
 (setq-default save-place t)
 (setq require-maybe-final-newline t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width '2)
-(custom-set-variables
- '(auto-save-default nil))
+(setq auto-save-default nil)
 
 ;; FREAK OUT DUE TO CARRIAGE RETURNS
 (custom-set-faces
  '(my-carriage-return-face ((((class color)) (:background "blue"))) t)
- '(my-tab-face ((((class color)) (:background "green"))) t)
- )
+ '(my-tab-face ((((class color)) (:background "green"))) t))
+
 (add-hook
  'font-lock-mode-hook
  (function
@@ -203,6 +177,50 @@
    (tab-mark 9 [9654 9] [92 9])
    ;others substitutions...
    ))
+
+;; SCALA
+(add-to-list 'load-path "~/.emacs.d/external/scala-mode")
+(add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
+(require-maybe 'scala-mode)
+(add-hook 'scala-mode-hook
+          (lambda () (whitespace-mode 1)))
+(add-hook 'scala-mode-hook
+          (lambda () (subword-mode 1)))
+
+
+(setq scala-indent:indent-value-expression nil)
+(setq scala-indent:align-parameters nil)
+(setq scala-indent:align-forms nil)
+(setq auto-mode-alist
+      (cons '("\\.sbt$" . scala-mode)
+            auto-mode-alist))
+
+;; MARKDOWN-MODE
+(setq auto-mode-alist
+      (cons '("\\.md" . markdown-mode)
+            auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.markdown" . markdown-mode)
+            auto-mode-alist))
+
+;; ENSIME
+(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
+(require-maybe 'ensime)
+
+; semantic highlighting colors
+(setq ensime-sem-high-faces
+      '(
+        (var . (:slant italic :foreground "#fa8072"))
+        (val . (:foreground "#cdbe70"))
+        (varField . (:foreground "#fa8072" :bold t :slant italic))
+        (valField . (:foreground "#cdbe70" :slant italic))
+        (functionCall . (:foreground "#7ec0ee" :slant italic))
+        (param . (:foreground "#ee7942"))
+        (class . (:foreground "#76eec6"))
+        (trait . (:foreground "#7CCD7C"))
+        (object . (:italic t :foreground "#76eec6"))
+        (package . font-lock-preprocessor-face)
+        ))
 
 ;; IDO
 ;; (require-maybe 'ido)
@@ -249,28 +267,6 @@
 ;; PROJECTILE
 ;; (require-maybe 'projectile)
 ;; (projectile-global-mode)
-
-;; SCALA
-(add-to-list 'load-path "~/.emacs.d/external/scala-mode")
-(add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
-(require-maybe 'scala-mode)
-(add-hook 'scala-mode-hook
-          (lambda () (whitespace-mode 1)))
-(add-hook 'scala-mode-hook
-          (lambda () (subword-mode 1)))
-
-
-(setq scala-indent:indent-value-expression nil)
-(setq scala-indent:align-parameters nil)
-(setq scala-indent:align-forms nil)
-(setq auto-mode-alist
-      (cons '("\\.sbt$" . scala-mode)
-            auto-mode-alist))
-
-;; MARKDOWN-MODE
-(autoload
-  'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ;; UTILITY FUNCTIONS
 (defun swap-windows ()
