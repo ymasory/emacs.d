@@ -220,15 +220,15 @@
 ;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
 ;; RECENTF
-(require-maybe 'recentf)
- (recentf-mode t)
-(setq recentf-max-saved-items 50)
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
+;; (require-maybe 'recentf)
+;;  (recentf-mode t)
+;; (setq recentf-max-saved-items 50)
+;; (defun ido-recentf-open ()
+;;   "Use `ido-completing-read' to \\[find-file] a recent file"
+;;   (interactive)
+;;   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+;;       (message "Opening file...")
+;;     (message "Aborting")))
 
 ;; HELM
 ;; (require-maybe 'helm-config)
