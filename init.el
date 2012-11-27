@@ -29,7 +29,7 @@
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
   ; M-n is not remapped, system new window
-(global-set-key (kbd "M-o") 'ido-recentf-open)
+(global-set-key (kbd "M-o") 'helm-projectile) ; 'ido-recentf-open, 'projectile-find-file
   (global-set-key (kbd "M-p") 'UNBOUND)
   ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
@@ -58,7 +58,7 @@
 ; C-i is tab
 (global-set-key "\C-j" 'newline-and-indent)
 (global-set-key "\C-k" 'kill-line)
-(global-set-key "\C-l" 'recenter-to-bottom)
+(global-set-key "\C-l" 'recenter-top-bottom)
 (global-set-key "\C-m" 'newline)
 (global-set-key "\C-n" 'next-line)
 (global-set-key "\C-o" 'open-line)
@@ -265,8 +265,8 @@
 ;; (highline-mode 1)
 
 ;; PROJECTILE
-;; (require-maybe 'projectile)
-;; (projectile-global-mode)
+(require-maybe 'projectile)
+(add-hook 'scala-mode-hook 'projectile-on)
 
 ;; UTILITY FUNCTIONS
 (defun swap-windows ()
