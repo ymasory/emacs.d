@@ -17,7 +17,7 @@
 ;; KEY BINDINGS, M-ξ
 (global-set-key (kbd "M-a") 'file-cache-add-directory-recursively)
 (global-set-key (kbd "M-b") 'backward-word)
-(global-set-key (kbd "M-c") 'capitalize-word)
+(global-set-key (kbd "M-c") 'copy-region-as-kill)
 (global-set-key (kbd "M-d") 'kill-word)
   (global-set-key (kbd "M-e") 'UNBOUND)
 (global-set-key (kbd "M-f") 'forward-word)
@@ -30,7 +30,7 @@
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
   ; M-n is not remapped, system new window
 (global-set-key (kbd "M-o") 'ido-recentf-open)
-(global-set-key (kbd "M-p") 'copy-region-as-kill)
+  (global-set-key (kbd "M-p") 'UNBOUND)
   ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
   (global-set-key (kbd "M-s") 'UNBOUND)
@@ -39,7 +39,7 @@
   ; M-v is not remapped, system paste
   ; M-w is not remapped, system close window
   (global-set-key (kbd "M-x") 'UNBOUND)
-  (global-set-key (kbd "M-y") 'UNBOUND)
+(global-set-key (kbd "M-y") 'yank-pop)
 (global-set-key (kbd "M-z") 'zap-to-char)
 (global-set-key (kbd "M-;") 'comment-dwim)
 (global-set-key (kbd "M-/") 'dabbrev-expand)
@@ -78,7 +78,7 @@
 ;; KEY BINDINGS, C-ξ C-ξ
 (global-set-key "\C-c\C-a" 'apropos)
   (global-set-key "\C-c\C-b" 'UNBOUND)
-  (global-set-key "\C-c\C-c" 'UNBOUND)
+(global-set-key "\C-c\C-c" 'capitalize-word)
   (global-set-key "\C-c\C-d" 'UNBOUND)
   (global-set-key "\C-c\C-e" 'UNBOUND)
   (global-set-key "\C-c\C-f" 'UNBOUND)
@@ -223,8 +223,8 @@
         ))
 
 ;; IDO
-;; (require-maybe 'ido)
-;; (ido-mode 1)
+(require-maybe 'ido)
+(ido-mode 1)
 ;; (ido-everywhere 1)
 ;; (setq ido-file-extensions-order
 ;;       '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
@@ -238,15 +238,15 @@
 ;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
 ;; RECENTF
-;; (require-maybe 'recentf)
-;;  (recentf-mode t)
+(require-maybe 'recentf)
+(recentf-mode t)
 ;; (setq recentf-max-saved-items 50)
-;; (defun ido-recentf-open ()
-;;   "Use `ido-completing-read' to \\[find-file] a recent file"
-;;   (interactive)
-;;   (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-;;       (message "Opening file...")
-;;     (message "Aborting")))
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
 
 ;; HELM
 ;; (require-maybe 'helm-config)
