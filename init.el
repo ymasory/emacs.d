@@ -24,7 +24,7 @@
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-c") 'copy-region-as-kill)
 (global-set-key (kbd "M-d") 'kill-word)
-  (global-set-key (kbd "M-e") 'UNBOUND)
+(global-set-key (kbd "M-e") 'execute-extended-command)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-g") 'magit-status)
 (global-set-key (kbd "M-h") 'split-window-below)
@@ -34,12 +34,12 @@
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
   ; M-n is not remapped, system new window
-; TODO add projectile to helm-for-files display
+  ; TODO add projectile to helm-for-files display
 (global-set-key (kbd "M-o") 'helm-for-files)
 (global-set-key (kbd "M-p") 'helm-projectile)
   ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
-  (global-set-key (kbd "M-s") 'UNBOUND)
+(global-set-key (kbd "M-s") 'swap-windows)
   ; M-t is not remapped, system new tab
 (global-set-key (kbd "M-u") 'undo)
   ; M-v is not remapped, system paste
@@ -94,7 +94,7 @@
   (global-set-key "\C-c\C-j" 'UNBOUND)
 (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key "\C-c\C-l" 'downcase-word)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
+  (global-set-key "\C-c\C-m" 'UNBOUND)
 (global-set-key "\C-c\C-n" 'linum-mode)
   (global-set-key "\C-c\C-o" 'other-window)
   (global-set-key "\C-c\C-p" 'UNBOUND)
@@ -164,7 +164,7 @@
  '(my-carriage-return-face ((((class color)) (:background "blue"))) t)
  '(my-tab-face ((((class color)) (:background "green"))) t))
 
-; TODO only do this if buffer name doesn't start with *
+; TODO disable in * buffers
 (add-hook 'font-lock-mode-hook
           (function (lambda ()
                       (setq font-lock-keywords
