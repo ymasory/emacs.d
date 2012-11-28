@@ -20,11 +20,11 @@
 
 
 ;; KEY BINDINGS, M-ξ
-(global-set-key (kbd "M-a") 'file-cache-add-directory-recursively)
+(global-set-key (kbd "M-a") 'execute-extended-command)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-c") 'copy-region-as-kill)
 (global-set-key (kbd "M-d") 'kill-word)
-(global-set-key (kbd "M-e") 'execute-extended-command)
+(global-set-key (kbd "M-e") 'kill-region)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-g") 'magit-status)
 (global-set-key (kbd "M-h") 'split-window-below)
@@ -92,7 +92,7 @@
   (global-set-key "\C-c\C-h" 'UNBOUND)
   (global-set-key "\C-c\C-i" 'UNBOUND)
   (global-set-key "\C-c\C-j" 'UNBOUND)
-(global-set-key "\C-c\C-k" 'kill-region)
+  (global-set-key "\C-c\C-k" 'UNBOUND)
 (global-set-key "\C-c\C-l" 'downcase-word)
   (global-set-key "\C-c\C-m" 'UNBOUND)
 (global-set-key "\C-c\C-n" 'linum-mode)
