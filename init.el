@@ -21,7 +21,7 @@
 (global-set-key (kbd "M-d") 'kill-word)
   (global-set-key (kbd "M-e") 'UNBOUND)
 (global-set-key (kbd "M-f") 'forward-word)
-  (global-set-key (kbd "M-g") 'UNBOUND)
+(global-set-key (kbd "M-g") 'magit-status)
   (global-set-key (kbd "M-h") 'UNBOUND)
 (global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-j") 'just-one-space)
