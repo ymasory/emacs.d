@@ -22,15 +22,15 @@
   (global-set-key (kbd "M-e") 'UNBOUND)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-g") 'magit-status)
-  (global-set-key (kbd "M-h") 'UNBOUND)
+(global-set-key (kbd "M-h") 'split-window-below)
 (global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-j") 'just-one-space)
 (global-set-key (kbd "M-k") 'kill-whole-line)
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
   ; M-n is not remapped, system new window
-(global-set-key (kbd "M-o") 'helm-projectile) ; 'ido-recentf-open, 'projectile-find-file
-  (global-set-key (kbd "M-p") 'UNBOUND)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-p") 'helm-projectile)
   ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
   (global-set-key (kbd "M-s") 'UNBOUND)
@@ -38,7 +38,7 @@
 (global-set-key (kbd "M-u") 'undo)
   ; M-v is not remapped, system paste
   ; M-w is not remapped, system close window
-  (global-set-key (kbd "M-x") 'UNBOUND)
+(global-set-key (kbd "M-x") 'delete-window)
 (global-set-key (kbd "M-y") 'yank-pop)
 (global-set-key (kbd "M-z") 'zap-to-char)
 (global-set-key (kbd "M-;") 'comment-dwim)
@@ -77,7 +77,7 @@
 
 ;; KEY BINDINGS, C-ξ C-ξ
 (global-set-key "\C-c\C-a" 'apropos)
-  (global-set-key "\C-c\C-b" 'UNBOUND)
+(global-set-key "\C-c\C-b" 'tmm-menubar)
 (global-set-key "\C-c\C-c" 'capitalize-word)
   (global-set-key "\C-c\C-d" 'UNBOUND)
   (global-set-key "\C-c\C-e" 'UNBOUND)
@@ -89,7 +89,7 @@
 (global-set-key "\C-c\C-k" 'kill-region)
 (global-set-key "\C-c\C-l" 'downcase-word)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
-  (global-set-key "\C-c\C-n" 'UNBOUND)
+(global-set-key "\C-c\C-n" 'linum-mode)
   (global-set-key "\C-c\C-o" 'UNBOUND)
   (global-set-key "\C-c\C-p" 'UNBOUND)
   (global-set-key "\C-c\C-q" 'UNBOUND)
@@ -133,79 +133,55 @@
 (global-set-key (kbd "C-c y") 'ensime-show-doc-for-symbol-at-point) ; scaladocs
 (global-set-key (kbd "C-c z") 'ensime-inf-switch) ; scala interpreter
 
+
+;; KEY BINDINGS, C-x C-ξ
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+
+;; KEY BINDINGS, C-x ξ
+(global-set-key (kbd "C-x f") 'helm-for-files)
+
+
 ;; GENERAL
-(setq-default column-number-mode t)
 (setq inhibit-splash-screen t)
-(setq confirm-nonexistent-file-or-buffer nil)
-(setq make-backup-files nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(menu-bar-mode -1)
-(setq scroll-margin 2)
-(setq scroll-step 1 scroll-conservatively 10000)
 (require-maybe 'saveplace)
 (setq-default save-place t)
-(setq require-maybe-final-newline t)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width '2)
-(setq auto-save-default nil)
 
-;; FREAK OUT DUE TO CARRIAGE RETURNS
+
+;; FREAK OUT DUE TO CARRIAGE RETURNS AND TABS & NOTIFY LONG LINES
 (custom-set-faces
  '(my-carriage-return-face ((((class color)) (:background "blue"))) t)
  '(my-tab-face ((((class color)) (:background "green"))) t))
 
-(add-hook
- 'font-lock-mode-hook
- (function
-  (lambda ()
-    (setq
-     font-lock-keywords
-     (append
-      font-lock-keywords
-      '(
-        ("\r" (0 'my-carriage-return-face t))
-        ("\t" (0 'my-tab-face t))
-        ))))))
+; TODO only do this if buffer name doesn't start with *
+(add-hook 'font-lock-mode-hook
+          (function (lambda ()
+                      (setq font-lock-keywords
+                            (append font-lock-keywords
+                                    '(("\r" (0 'my-carriage-return-face t))
+                                      ("\t" (0 'my-tab-face t))))))))
 
-;; NOTIFY LONG LINES, NEW WAY
+(setq whitespace-display-mappings
+      '((tab-mark 9 [9654 9] [92 9])))
+
 (setq whitespace-style
-  (quote (face trailing tab-mark lines-tail)))
-; (add-hook 'find-file-hook 'whitespace-mode)
-(setq
- whitespace-display-mappings ;http://ergoemacs.org/emacs/whitespace-mode.html
- '(
-   (tab-mark 9 [9654 9] [92 9])
-   ;others substitutions...
-   ))
+      '(face trailing tab-mark lines-tail))
+
 
 ;; SCALA
 (add-to-list 'load-path "~/.emacs.d/external/scala-mode")
 (add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
+(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
 (require-maybe 'scala-mode)
+(add-hook 'scala-mode-hook
+          (lambda () (require-maybe 'ensime)))
 (add-hook 'scala-mode-hook
           (lambda () (whitespace-mode 1)))
 (add-hook 'scala-mode-hook
           (lambda () (subword-mode 1)))
+;; TODO turn on menu bar when ensime is loaded
 
-
-(setq scala-indent:indent-value-expression nil)
-(setq scala-indent:align-parameters nil)
-(setq scala-indent:align-forms nil)
-(setq auto-mode-alist
-      (cons '("\\.sbt$" . scala-mode)
-            auto-mode-alist))
-
-;; MARKDOWN-MODE
-(setq auto-mode-alist
-      (cons '("\\.md" . markdown-mode)
-            auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.markdown" . markdown-mode)
-            auto-mode-alist))
-
-;; ENSIME
-(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-(require-maybe 'ensime)
 
 ; semantic highlighting colors
 (setq ensime-sem-high-faces
@@ -222,51 +198,15 @@
         (package . font-lock-preprocessor-face)
         ))
 
-;; IDO
-(require-maybe 'ido)
-(ido-mode 1)
-;; (ido-everywhere 1)
-;; (setq ido-file-extensions-order
-;;       '(".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
-;; (setq confirm-nonexistent-file-or-buffer nil)
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-create-new-buffer 'always)
-;; (setq ido-enable-tramp-completion nil)
-;; (setq ido-enable-last-directory-history nil)
-;; (setq ido-confirm-unique-completion nil) ;; wait for RET, even for unique?
-;; (setq ido-show-dot-for-dired t) ;; put . as the first item
-;; (setq ido-use-filename-at-point t) ;; prefer file names near point
 
-;; RECENTF
-(require-maybe 'recentf)
-(recentf-mode t)
-;; (setq recentf-max-saved-items 50)
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
+;; FILE ASSOCIATIONS
+(setq auto-mode-alist
+      (append '(("\\.sbt$" . scala-mode)
+                ("\\.conf" . javascript-mode)
+                ("\\.markdown" . markdown-mode)
+                ("\\.md" . markdown-mode))
+              auto-mode-alist))
 
-;; HELM
-;; (require-maybe 'helm-config)
-;; (helm-mode 1)
-;; (require-maybe 'helm-gist)
-;; (require-maybe 'helm-git)
-;; (require-maybe 'helm-projectile)
-;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-;; (global-set-key (kbd "C-x f") 'helm-for-files)
-
-;; LINES
-;; (global-linum-mode 1)
-;; (setq linum-format "%d ")
-;; (setq linum-format "%4d \u2502 ")
-;; (require-maybe 'highline)
-;; (highline-mode 1)
-
-;; PROJECTILE
-(require-maybe 'projectile)
-(add-hook 'scala-mode-hook 'projectile-on)
 
 ;; UTILITY FUNCTIONS
 (defun swap-windows ()
@@ -325,3 +265,26 @@
   "UNBOUND"
   (interactive)
   (message "UNBOUND KEY"))
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
+ '(confirm-nonexistent-file-or-buffer nil)
+ '(ido-enable-flex-matching t)
+ '(ido-enable-last-directory-history t)
+ '(ido-file-extensions-order (quote (".scala t")))
+ '(indent-tabs-mode nil)
+ '(linum-format "%4d │ ")
+ '(make-backup-files nil)
+ '(menu-bar-mode nil)
+ '(mode-require-final-newline t)
+ '(scroll-conservatively 10000)
+ '(scroll-margin 2)
+ '(scroll-step 1)
+ '(tab-width 2))
+
+
