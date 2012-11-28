@@ -135,11 +135,10 @@
 
 
 ;; KEY BINDINGS, C-x C-ξ
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x C-f") 'helm-for-files)
 
 
 ;; KEY BINDINGS, C-x ξ
-(global-set-key (kbd "C-x f") 'helm-for-files)
 
 
 ;; GENERAL
@@ -274,9 +273,6 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(confirm-nonexistent-file-or-buffer nil)
- '(ido-enable-flex-matching t)
- '(ido-enable-last-directory-history t)
- '(ido-file-extensions-order (quote (".scala t")))
  '(indent-tabs-mode nil)
  '(linum-format "%4d │ ")
  '(make-backup-files nil)
