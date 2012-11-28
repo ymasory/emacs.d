@@ -136,6 +136,7 @@
 
 ;; KEY BINDINGS, C-x C-ξ
 (global-set-key (kbd "C-x C-f") 'helm-for-files)
+(global-set-key (kbd "C-x C-c") 'delete-frame)
 
 
 ;; KEY BINDINGS, C-x ξ
@@ -202,6 +203,7 @@
 (setq auto-mode-alist
       (append '(("\\.sbt$" . scala-mode)
                 ("\\.conf" . javascript-mode)
+                ("\\.zsh" . sh-mode)
                 ("\\.markdown" . markdown-mode)
                 ("\\.md" . markdown-mode))
               auto-mode-alist))
