@@ -1,4 +1,4 @@
-;; PATH
+0;95;c;; PATH
 (add-to-list 'load-path "~/.emacs.d/myext")
 
 ;; REQUIRE-MAYBE
@@ -282,7 +282,10 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(confirm-nonexistent-file-or-buffer nil)
- '(helm-c-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*.*\\*"))
+ '(helm-c-boring-buffer-regexp-list (quote ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*.*\\*")))
+ '(helm-c-boring-file-regexp-list (quote ("\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "\\..*")))
+ '(helm-ff-newfile-prompt-p nil)
+ '(helm-for-files-preferred-list (quote (helm-c-source-ffap-line helm-c-source-ffap-guesser helm-c-source-buffers-list helm-c-source-recentf helm-c-source-bookmarks helm-c-source-file-cache helm-c-source-files-in-current-dir helm-c-source-locate)))
  '(indent-tabs-mode nil)
  '(linum-format "%4d │ ")
  '(make-backup-files nil)
