@@ -29,7 +29,8 @@
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
   ; M-n is not remapped, system new window
-(global-set-key (kbd "M-o") 'other-window)
+; TODO add projectile to helm-for-files display
+(global-set-key (kbd "M-o") 'helm-for-files)
 (global-set-key (kbd "M-p") 'helm-projectile)
   ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
@@ -90,7 +91,7 @@
 (global-set-key "\C-c\C-l" 'downcase-word)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-n" 'linum-mode)
-  (global-set-key "\C-c\C-o" 'UNBOUND)
+  (global-set-key "\C-c\C-o" 'other-window)
   (global-set-key "\C-c\C-p" 'UNBOUND)
   (global-set-key "\C-c\C-q" 'UNBOUND)
 (global-set-key "\C-c\C-r" 'string-rectangle)
@@ -135,8 +136,9 @@
 
 
 ;; KEY BINDINGS, C-x C-ξ
-(global-set-key (kbd "C-x C-f") 'helm-for-files)
+(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-c") 'delete-frame)
+(global-set-key (kbd "C-x C-f") 'UNBOUND)
 
 
 ;; KEY BINDINGS, C-x ξ
@@ -151,6 +153,10 @@
 
 ;; FREAK OUT DUE TO CARRIAGE RETURNS AND TABS & NOTIFY LONG LINES
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(my-carriage-return-face ((((class color)) (:background "blue"))) t)
  '(my-tab-face ((((class color)) (:background "green"))) t))
 
@@ -205,6 +211,7 @@
                 ("\\.conf" . javascript-mode)
                 ("\\.zsh" . sh-mode)
                 ("\\.markdown" . markdown-mode)
+                ("\\.plist" . nxml-mode)
                 ("\\.md" . markdown-mode))
               auto-mode-alist))
 
@@ -275,6 +282,7 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(confirm-nonexistent-file-or-buffer nil)
+ '(helm-c-boring-buffer-regexp-list '("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*.*\\*"))
  '(indent-tabs-mode nil)
  '(linum-format "%4d │ ")
  '(make-backup-files nil)
