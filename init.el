@@ -1,18 +1,23 @@
-0;95;c;; PATH
-(add-to-list 'load-path "~/.emacs.d/myext")
-
-;; REQUIRE-MAYBE
-(defmacro require-maybe (feature &optional file)
-  "*Try to require FEATURE, but don't signal an error if `require' fails."
-  `(require ,feature ,file 'noerror))
-
 ; ELPA
-(require-maybe 'package)
+(require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
   (add-to-list 'package-archives source t))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+
+
+;; LOAD FREQUENTLY USED MODES
+(add-to-list 'load-path "~/.emacs.d/external/scala-mode")
+(add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
+(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
+(require 'ensime)
+(require 'helm-config)
+(require 'linum)
+(require 'projectile)
+(require 'saveplace)
+(require 'scala-mode)
+
 
 ;; KEY BINDINGS, M-ξ
 (global-set-key (kbd "M-a") 'file-cache-add-directory-recursively)
@@ -137,7 +142,7 @@
 
 ;; KEY BINDINGS, C-x C-ξ
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "C-x C-c") 'delete-frame)
+;(global-set-key (kbd "C-x C-c") 'delete-frame)
 (global-set-key (kbd "C-x C-f") 'UNBOUND)
 
 
@@ -147,7 +152,6 @@
 ;; GENERAL
 (setq inhibit-splash-screen t)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(require-maybe 'saveplace)
 (setq-default save-place t)
 
 
@@ -176,12 +180,6 @@
 
 
 ;; SCALA
-(add-to-list 'load-path "~/.emacs.d/external/scala-mode")
-(add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
-(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-(require-maybe 'scala-mode)
-(add-hook 'scala-mode-hook
-          (lambda () (require-maybe 'ensime)))
 (add-hook 'scala-mode-hook
           (lambda () (whitespace-mode 1)))
 (add-hook 'scala-mode-hook
@@ -207,7 +205,7 @@
 
 ;; FILE ASSOCIATIONS
 (setq auto-mode-alist
-      (append '(("\\.sbt$" . scala-mode)
+      (append '(("\\.sbt" . scala-mode)
                 ("\\.conf" . javascript-mode)
                 ("\\.zsh" . sh-mode)
                 ("\\.markdown" . markdown-mode)
@@ -215,6 +213,17 @@
                 ("\\.md" . markdown-mode))
               auto-mode-alist))
 
+
+;; PROJECTILE
+;; (setq projectile-ignored-file-extensions
+;;       (append projectile-ignored-file-extensions
+;;               '("scala")))
+(setq projectile-globally-ignored-directories
+      (append projectile-globally-ignored-directories
+              '("target" "project/target" ".lib" ".ensime_lucene" ".settings")))
+(setq projectile-globally-ignored-files
+      (append projectile-globally-ignored-files
+              '(".cache" ".classpath" ".ensime" ".gitignore" ".project" "sbt")))
 
 ;; UTILITY FUNCTIONS
 (defun swap-windows ()
@@ -268,6 +277,10 @@
         (set-visited-file-name newname)
         (set-buffer-modified-p nil)
         t))))
+
+(defmacro require-maybe (feature &optional file)
+  "*Try to require FEATURE, but don't signal an error if `require' fails."
+  `(require ,feature ,file 'noerror))
 
 (defun UNBOUND ()
   "UNBOUND"
