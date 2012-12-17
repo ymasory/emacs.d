@@ -30,6 +30,7 @@
 (global-set-key (kbd "M-h") 'split-window-below)
 (global-set-key (kbd "M-i") 'back-to-indentation)
 (global-set-key (kbd "M-j") 'just-one-space)
+(global-set-key (kbd "M-J") 'delete-horizontal-space)
 (global-set-key (kbd "M-k") 'kill-whole-line)
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
@@ -47,9 +48,9 @@
 (global-set-key (kbd "M-x") 'delete-window)
 (global-set-key (kbd "M-y") 'yank-pop)
 (global-set-key (kbd "M-z") 'zap-to-char)
-(global-set-key (kbd "M-;") 'comment-dwim)
-(global-set-key (kbd "M-/") 'dabbrev-expand)
-(global-set-key (kbd "M-\\") 'delete-horizontal-space)
+(global-set-key (kbd "M-/") 'comment-dwim)
+(global-set-key (kbd "M-;") 'dabbrev-expand)
+(global-set-key (kbd "M-\\") 'UNBOUND)
 
 
 ;; KEY BINDINGS, C-ξ
@@ -142,11 +143,12 @@
 
 ;; KEY BINDINGS, C-x C-ξ
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+(global-set-key (kbd "C-x C-f") 'find-file)
 ;(global-set-key (kbd "C-x C-c") 'delete-frame)
-(global-set-key (kbd "C-x C-f") 'UNBOUND)
 
 
 ;; KEY BINDINGS, C-x ξ
+(global-set-key (kbd "C-c C-f") 'ack)
 
 
 ;; GENERAL
@@ -180,8 +182,8 @@
 
 
 ;; SCALA
-(add-hook 'scala-mode-hook
-          (lambda () (whitespace-mode 1)))
+;; (add-hook 'scala-mode-hook
+;;           (lambda () (whitespace-mode 1)))
 (add-hook 'scala-mode-hook
           (lambda () (subword-mode 1)))
 ;; TODO turn on menu bar when ensime is loaded
