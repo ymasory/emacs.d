@@ -212,6 +212,7 @@
                 ("\\.zsh" . sh-mode)
                 ("\\.markdown" . markdown-mode)
                 ("\\.plist" . nxml-mode)
+                ("Vagrantfile" . ruby-mode)
                 ("\\.md" . markdown-mode))
               auto-mode-alist))
 
@@ -289,6 +290,15 @@
   (interactive)
   (message "UNBOUND KEY"))
 
+(custom-set-variables
+ '(haskell-mode-hook '(turn-on-haskell-indentation)))
+
+;; (custom-set-variables
+;;  '(haskell-mode-hook '(turn-on-haskell-indentation)))
+
+;; (custom-set-variables
+;;  '(haskell-mode-hook '(turn-on-haskell-simple-indent)))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -312,3 +322,4 @@
  '(tab-width 2))
 
 
+(setq line-number-mode t)
