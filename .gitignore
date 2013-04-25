@@ -1,3 +1,4 @@
 *.elc
 /projectile.cache
 /auto-save-list/
+/scala-mode2/

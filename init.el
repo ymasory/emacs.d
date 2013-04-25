@@ -1,22 +1,17 @@
 ; ELPA
-(require 'package)
-(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
-  (add-to-list 'package-archives source t))
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+;; (require 'package)
+;; (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")))
+;;   (add-to-list 'package-archives source t))
+;; (add-to-list 'package-archives
+;;              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; (package-initialize)
 
 
 ;; LOAD FREQUENTLY USED MODES
-(add-to-list 'load-path "~/.emacs.d/external/scala-mode")
-(add-to-list 'load-path "~/.emacs.d/external/scalatra-mode")
-(add-to-list 'load-path "~/.emacs.d/ensime/elisp")
-(require 'ensime)
-(require 'helm-config)
+(add-to-list 'load-path "~/.emacs.d/scala-mode2")
 (require 'linum)
-(require 'projectile)
 (require 'saveplace)
-(require 'scala-mode)
+(require 'scala-mode2)
 
 
 ;; KEY BINDINGS, M-ξ
@@ -35,9 +30,8 @@
 (global-set-key (kbd "M-l") 'goto-line)
 (global-set-key (kbd "M-m") 'delete-trailing-whitespace)
   ; M-n is not remapped, system new window
-  ; TODO add projectile to helm-for-files display
-(global-set-key (kbd "M-o") 'helm-for-files)
-(global-set-key (kbd "M-p") 'helm-projectile)
+;; (global-set-key (kbd "M-o") 'helm-for-files)
+;; (global-set-key (kbd "M-p") 'helm-projectile)
   ; M-q is not remapped, system quit
 (global-set-key (kbd "M-r") 'revert-buffer)
 (global-set-key (kbd "M-s") 'swap-windows)
@@ -50,7 +44,7 @@
 (global-set-key (kbd "M-z") 'zap-to-char)
 (global-set-key (kbd "M-/") 'comment-dwim)
 (global-set-key (kbd "M-;") 'dabbrev-expand)
-(global-set-key (kbd "M-\\") 'UNBOUND)
+  (global-set-key (kbd "M-\\") 'UNBOUND)
 
 
 ;; KEY BINDINGS, C-ξ
@@ -142,7 +136,7 @@
 
 
 ;; KEY BINDINGS, C-x C-ξ
-(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+;; (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 (global-set-key (kbd "C-x C-f") 'find-file)
 ;(global-set-key (kbd "C-x C-c") 'delete-frame)
 
@@ -159,10 +153,6 @@
 
 ;; FREAK OUT DUE TO CARRIAGE RETURNS AND TABS & NOTIFY LONG LINES
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(my-carriage-return-face ((((class color)) (:background "blue"))) t)
  '(my-tab-face ((((class color)) (:background "green"))) t))
 
@@ -216,17 +206,29 @@
                 ("\\.md" . markdown-mode))
               auto-mode-alist))
 
+;; RANDOM CONFIGURATIONS
+(setq inhibit-default-init t)
+(setq line-number-mode t)
+(setq require-final-newline t)
+(setq-default require-final-newline t)
+(setq column-number-mode t)
 
-;; PROJECTILE
-;; (setq projectile-ignored-file-extensions
-;;       (append projectile-ignored-file-extensions
-;;               '("scala")))
-(setq projectile-globally-ignored-directories
-      (append projectile-globally-ignored-directories
-              '("target" "project/target" ".lib" ".ensime_lucene" ".settings")))
-(setq projectile-globally-ignored-files
-      (append projectile-globally-ignored-files
-              '(".cache" ".classpath" ".ensime" ".gitignore" ".project" "sbt")))
+
+(custom-set-variables
+ '(auto-save-default nil)
+ '(confirm-nonexistent-file-or-buffer nil)
+ '(indent-tabs-mode nil)
+ '(linum-format "%4d │ ")
+ '(make-backup-files nil)
+ '(menu-bar-mode nil)
+ '(mode-require-final-newline t)
+ '(scroll-conservatively 10000)
+ '(scroll-margin 2)
+ '(scroll-step 1)
+ '(tab-width 2))
+
+
+
 
 ;; UTILITY FUNCTIONS
 (defun swap-windows ()
@@ -289,37 +291,3 @@
   "UNBOUND"
   (interactive)
   (message "UNBOUND KEY"))
-
-(custom-set-variables
- '(haskell-mode-hook '(turn-on-haskell-indentation)))
-
-;; (custom-set-variables
-;;  '(haskell-mode-hook '(turn-on-haskell-indentation)))
-
-;; (custom-set-variables
-;;  '(haskell-mode-hook '(turn-on-haskell-simple-indent)))
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-save-default nil)
- '(confirm-nonexistent-file-or-buffer nil)
- '(helm-c-boring-buffer-regexp-list (quote ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf" "\\*.*\\*")))
- '(helm-c-boring-file-regexp-list (quote ("\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "~$" "\\..*")))
- '(helm-ff-newfile-prompt-p nil)
- '(helm-for-files-preferred-list (quote (helm-c-source-ffap-line helm-c-source-ffap-guesser helm-c-source-buffers-list helm-c-source-recentf helm-c-source-bookmarks helm-c-source-file-cache helm-c-source-files-in-current-dir helm-c-source-locate)))
- '(indent-tabs-mode nil)
- '(linum-format "%4d │ ")
- '(make-backup-files nil)
- '(menu-bar-mode nil)
- '(mode-require-final-newline t)
- '(scroll-conservatively 10000)
- '(scroll-margin 2)
- '(scroll-step 1)
- '(tab-width 2))
-
-
-(setq line-number-mode t)
